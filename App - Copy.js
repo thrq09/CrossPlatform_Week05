@@ -1,64 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import Meet5_home from './Meet5_home';
-import Meet5_profile from './Meet5_profile';
-import Meet6_latih1 from './Meet6_latih1';
-
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+import { StyleSheet, View, Text } from "react-native";
+import { useState } from "react";
+import {Input, Input02} from "./Input";
 
 export default function App() {
+  const [name, setName] = useState("");
+  const [nim, setNim] = useState("");
+
   return (
-    // <NavigasiDasar />
-    // <NavigasiBottom />
-    <NavigasiDrawer />
+    <View style={styles.container}>
+      <Text>Masukkan Data Anda</Text>
+
+      {/* Input untuk Nama (Default Keyboard) */}
+      <Input
+        label="Nama"
+        value={name}
+        onChangeText={setName}
+        placeholder="Masukkan Nama"
+        keyboardType="default"
+        returnKeyType="search"
+      />
+
+      {/* Input untuk NIM (Numeric Keyboard) */}
+      <Input02
+        label="NIM"
+        value={nim}
+        onChangeText={setNim}
+        placeholder="Masukkan NIM"
+        keyboardType="numeric"
+      />
+
+      <Text>Nama: {name}</Text>
+      <Text>NIM: {nim}</Text>
+    </View>
   );
 }
 
-const NavigasiDrawer = () => {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={Meet5_home} />
-        <Drawer.Screen name="Profile" component={Meet5_profile} />
-        <Drawer.Screen name="Meet6" component={Meet6_latih1} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
-};
-
-const NavigasiBottom = () => {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Meet5_home} />
-        <Tab.Screen name="Profile" component={Meet5_profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-};
-
-const NavigasiDasar = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Meet5_home} />
-        <Stack.Screen name="Profile" component={Meet5_profile} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    gap: 10, // Memberikan jarak antar elemen
   },
 });
